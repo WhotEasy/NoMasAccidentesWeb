@@ -1,0 +1,46 @@
+﻿@using NomasAccidentes2._0.Negocio;
+@{
+    ViewBag.Title = "Cuentas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-primary">Lista Usuarios</h2>
+            </div>
+            <div class="col-6 text-right ">
+                @Html.ActionLink("Crear usuario", "Create", new {@class= "btn btn-primary text-right fas fa-plus" })
+            </div>
+        </div>
+        @{
+            List<Usuario> Usuarios = (List<Usuario>)ViewBag.Usuario;
+        }
+        <table id="tblUsuario" class="table table-striped table-bordered" style="width:100%">
+            <tr>
+                <th> Nombre</th>
+                <th> Tipo usuario</th>
+                <th> Estado usuario</th>
+                <th> Opciones</th>
+            </tr>
+            @foreach (var usuario in Usuarios)
+            {
+                <tr>
+                    <td>@usuario.Nombre</td>
+                    <td>@usuario.rol.Descripcion</td>
+                    <td>@usuario.estadousr.Descripcion</td>
+                    <td><div class="text-center ">
+                        @Html.ActionLink("Editar", "Edit", new { id = usuario.Id }, new { @class = "btn btn-success fas fa-edit" })
+                        
+                        @Html.ActionLink("Eliminar", "Delete", new { id = usuario.Id },new { @class = "btn btn-danger fas fa-trash-alt" })
+                        
+                        </div>
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        @TempData["mensaje"]
+    </div>
+

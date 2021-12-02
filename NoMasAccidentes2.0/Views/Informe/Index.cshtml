@@ -1,0 +1,49 @@
+﻿@using NomasAccidentes2._0.Negocio;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">Lista informes</h2>
+        </div>
+    </div>
+    @{
+        List<Informe> infor = (List<Informe>)ViewBag.info;
+    }
+    <table id="tblUsuario" class="table table-striped table-bordered" style="width:100%">
+        <tr>
+            <th> descripcion </th>
+            <th> Estado </th>
+            <th> fecha informe</th>
+            <th> Rut prfesional </th>
+            <th> Rut cliente </th>
+            <th>id_planilla</th>
+            <th> Opciones</th>
+        </tr>
+        @foreach (var inform in infor)
+        {
+    <tr>
+        <td>@inform.DESCRIPCION</td>
+        <td>@inform.ID_ESTADO_INFO</td>
+        <td>@inform.fecha</td>
+        <td>@inform.Rut_profesional</td>
+        <td>@inform.Rut_cliente</td>
+        <td>@inform.ID_PLANILLA</td>
+        <td>
+            <div class="text-center ">
+                @Html.ActionLink("Descargar", "Edit", new { id = inform.Id_informe }, new { @class = "btn btn-success fas fa-edit" })
+
+            </div>
+        </td>
+
+    </tr>
+        }
+
+    </table>
+    @TempData["mensaje"]
+</div>

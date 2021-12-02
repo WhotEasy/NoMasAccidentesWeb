@@ -1,0 +1,57 @@
+﻿@model NomasAccidentes2._0.Negocio.Solicitudes
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<h2>Create</h2>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    string tiempo = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd");
+    <form method="post" asp-action="Create">
+        <div class="row px-2 mx-2 border">
+            <div class="col-10 offset-1 mt-4">
+                <div class="form-group row">
+                    <div class="col-4 mt-4">
+
+                        @Html.LabelFor(u => u.RUT_CLIENTE, new { @class = "form-control" })
+                    </div>
+                    <div class="col-8 mt-4">
+                        @Html.TextBoxFor(u => u.RUT_CLIENTE, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 mt-4">
+                        @Html.LabelFor(u => u.FECHA_SOLICITUD, "Fecha de solicitud", new { @class = "form-control" })
+                    </div>
+                    <div class="col-8 mt-4">
+                        @Html.TextBoxFor(u => u.FECHA_SOLICITUD, new { @class = "form-control", Type = "date", min = tiempo } )
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 mt-4">
+                        @Html.LabelFor(u => u.ID_TIPO_SOLICITUDES, "Tipo", new { @class = "form-control" })
+                    </div>
+                    <div class="col-8 mt-4">
+                        @Html.DropDownListFor(u => u.ID_TIPO_SOLICITUDES, new SelectList(ViewBag.tipo, "id_tipo_soli", "Descripcion"), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-4" row>
+                <div class="col-8 offset-4">
+                    <div class="row ">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary form-control">Crear</button>
+                            &nbsp;
+                            @Html.ActionLink("Volver", "Index", new { @class = "btn btn-primary text-right fas fa-plus" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}

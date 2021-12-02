@@ -1,0 +1,1020 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ALERTA_ACCIDENTE">
+    <Key>
+      <PropertyRef Name="ID_ALERTA_ACCIDENTE" />
+    </Key>
+    <Property Name="ID_ALERTA_ACCIDENTE" Type="Int32" Nullable="false" />
+    <Property Name="ID_REGISTRO_ACCIDENTE" Type="Int32" Nullable="false" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <Property Name="ID_REGISTRO_ACCIDENTES" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_ALE_CLIE" FromRole="ALERTA_ACCIDENTE" ToRole="CLIENTE" />
+    <NavigationProperty Name="REGISTRO_ACCIDENTES" Relationship="Self.FK_REGI_ACCID" FromRole="ALERTA_ACCIDENTE" ToRole="REGISTRO_ACCIDENTES" />
+  </EntityType>
+  <EntityType Name="ALERTA_PROXIMO_PAGO">
+    <Key>
+      <PropertyRef Name="ID_ALERTA_PROXIMO_PAGO" />
+    </Key>
+    <Property Name="ID_ALERTA_PROXIMO_PAGO" Type="Int32" Nullable="false" />
+    <Property Name="FECHA_PAGO" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="PAGOS" Relationship="Self.FK_PA_AL_PROX" FromRole="ALERTA_PROXIMO_PAGO" ToRole="PAGOS" />
+  </EntityType>
+  <EntityType Name="ASESORIA">
+    <Key>
+      <PropertyRef Name="ID_ASESORIA" />
+    </Key>
+    <Property Name="ID_ASESORIA" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_PLAN_MEJORAS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PLAN_MEJORAS" Relationship="Self.FK_ASESORIA" FromRole="ASESORIA" ToRole="PLAN_MEJORAS" />
+  </EntityType>
+  <EntityType Name="CAPACITACION">
+    <Key>
+      <PropertyRef Name="ID_CAPACITACION" />
+    </Key>
+    <Property Name="ID_CAPACITACION" Type="Int32" Nullable="false" />
+    <Property Name="FECHA" Type="DateTime" Nullable="false" />
+    <Property Name="HORA" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_PARTICIPANTE_CAPACITACION" Type="Int32" Nullable="false" />
+    <Property Name="ID_MATERIALES_CAPACITACION" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MATERIALES_EN_CAPACITACION" Relationship="Self.FK_CAPA_MAT" FromRole="CAPACITACION" ToRole="MATERIALES_EN_CAPACITACION" />
+    <NavigationProperty Name="PARTICIPANTE_CAPACITACION" Relationship="Self.FK_CAPA_PARTICIPA_" FromRole="CAPACITACION" ToRole="PARTICIPANTE_CAPACITACION" />
+  </EntityType>
+  <EntityType Name="CASOS">
+    <Key>
+      <PropertyRef Name="ID_CASOS" />
+    </Key>
+    <Property Name="ID_CASOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECHA_CASO" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_CIERRE" Type="DateTime" />
+    <Property Name="RESOLUCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ID_TIPO_CASO" Type="Int32" Nullable="false" />
+    <Property Name="ID_ESTADO_CASO" Type="Int32" Nullable="false" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CA_CLIENT" FromRole="CASOS" ToRole="CLIENTE" />
+    <NavigationProperty Name="ESTADO_CASO" Relationship="Self.FK_CA_ESTA_CASO" FromRole="CASOS" ToRole="ESTADO_CASO" />
+    <NavigationProperty Name="TIPO_CASO" Relationship="Self.FK_CA_TIPO_CASO" FromRole="CASOS" ToRole="TIPO_CASO" />
+  </EntityType>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="RUT_CLIENTE" />
+    </Key>
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_CLIENTE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RAZON_SOCIAL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CORREO_ELECTRONICO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int32" />
+    <NavigationProperty Name="ALERTA_ACCIDENTE" Relationship="Self.FK_ALE_CLIE" FromRole="CLIENTE" ToRole="ALERTA_ACCIDENTE" />
+    <NavigationProperty Name="CASOS" Relationship="Self.FK_CA_CLIENT" FromRole="CLIENTE" ToRole="CASOS" />
+    <NavigationProperty Name="SOLICITUDES" Relationship="Self.FK_CLIENTE" FromRole="CLIENTE" ToRole="SOLICITUDES" />
+    <NavigationProperty Name="INFORME" Relationship="Self.FK_CLIENTE_INFO" FromRole="CLIENTE" ToRole="INFORME" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_CLIENTE_USUARIO" FromRole="CLIENTE" ToRole="USUARIO" />
+    <NavigationProperty Name="CONTRATO" Relationship="Self.FK_CONTRATO_CLIENTE" FromRole="CLIENTE" ToRole="CONTRATO" />
+    <NavigationProperty Name="REGISTRO_ACTIVIDADES" Relationship="Self.FK_RE_ACT_CLIE" FromRole="CLIENTE" ToRole="REGISTRO_ACTIVIDADES" />
+  </EntityType>
+  <EntityType Name="CONTRATO">
+    <Key>
+      <PropertyRef Name="ID_CONTRATO" />
+    </Key>
+    <Property Name="ID_CONTRATO" Type="Int32" Nullable="false" />
+    <Property Name="FECHA_CONTRATO" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Nullable="false" />
+    <Property Name="MONTO_PACTADO" Type="Int32" Nullable="false" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <Property Name="ID_SERVICIOS_EN_CONTRATOS" Type="Int32" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTRATO_CLIENTE" FromRole="CONTRATO" ToRole="CLIENTE" />
+    <NavigationProperty Name="SERVICIOS_EN_CONTRATOS" Relationship="Self.FK_CONTRATO_SERVO_CONT" FromRole="CONTRATO" ToRole="SERVICIOS_EN_CONTRATOS" />
+  </EntityType>
+  <EntityType Name="DETALLE_ACCIDENTE">
+    <Key>
+      <PropertyRef Name="ID_DETALLE_ACCIDENTE" />
+    </Key>
+    <Property Name="ID_DETALLE_ACCIDENTE" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_ACCIDENTADO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LUGAR_ACCIDENTE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPCION_ACCIDENTE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="REGISTRO_ACCIDENTES" Relationship="Self.FK_DETA_ACCIDE" FromRole="DETALLE_ACCIDENTE" ToRole="REGISTRO_ACCIDENTES" />
+  </EntityType>
+  <EntityType Name="DETALLES_DOCUMENTOS">
+    <Key>
+      <PropertyRef Name="ID_DETALLES_DOCUMENTOS" />
+    </Key>
+    <Property Name="ID_DETALLES_DOCUMENTOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VALOR_COBRADO" Type="Int32" Nullable="false" />
+    <Property Name="ID_DOCUMENTOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DOCUMENTOS" Relationship="Self.FK_DETALLE_DOCUMENTO" FromRole="DETALLES_DOCUMENTOS" ToRole="DOCUMENTOS" />
+    <NavigationProperty Name="SERVICIOS" Relationship="Self.FK_SERV_DETA_DOCUM" FromRole="DETALLES_DOCUMENTOS" ToRole="SERVICIOS" />
+  </EntityType>
+  <EntityType Name="DOCUMENTOS">
+    <Key>
+      <PropertyRef Name="ID_DOCUMENTOS" />
+    </Key>
+    <Property Name="ID_DOCUMENTOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Nullable="false" />
+    <Property Name="ID_MOROSIDAD" Type="Int32" Nullable="false" />
+    <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" Nullable="false" />
+    <Property Name="ID_PAGOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DETALLES_DOCUMENTOS" Relationship="Self.FK_DETALLE_DOCUMENTO" FromRole="DOCUMENTOS" ToRole="DETALLES_DOCUMENTOS" />
+    <NavigationProperty Name="PAGOS" Relationship="Self.FK_DOCUM_PAG" FromRole="DOCUMENTOS" ToRole="PAGOS" />
+    <NavigationProperty Name="MOROSIDAD" Relationship="Self.FK_DOCUME_MOROSI" FromRole="DOCUMENTOS" ToRole="MOROSIDAD" />
+    <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DOCUMES_TIPO_DOCUME" FromRole="DOCUMENTOS" ToRole="TIPO_DOCUMENTO" />
+  </EntityType>
+  <EntityType Name="ESTADO_CASO">
+    <Key>
+      <PropertyRef Name="ID_ESTADO_CASO" />
+    </Key>
+    <Property Name="ID_ESTADO_CASO" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CASOS" Relationship="Self.FK_CA_ESTA_CASO" FromRole="ESTADO_CASO" ToRole="CASOS" />
+  </EntityType>
+  <EntityType Name="ESTADO_SOLICITUDES">
+    <Key>
+      <PropertyRef Name="ID_ESTADO_SOLICITUDES" />
+    </Key>
+    <Property Name="ID_ESTADO_SOLICITUDES" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="SOLICITUDES" Relationship="Self.FK_EST_SOLICI" FromRole="ESTADO_SOLICITUDES" ToRole="SOLICITUDES" />
+  </EntityType>
+  <EntityType Name="ESTADO_USUARIOS">
+    <Key>
+      <PropertyRef Name="ID_ESTADO_USUARIOS" />
+    </Key>
+    <Property Name="ID_ESTADO_USUARIOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_EST_USUAR" FromRole="ESTADO_USUARIOS" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="INFORME">
+    <Key>
+      <PropertyRef Name="ID_INFORME" />
+    </Key>
+    <Property Name="ID_INFORME" Type="Int32" Nullable="false" />
+    <Property Name="FECHA" Type="DateTime" Nullable="false" />
+    <Property Name="RUT_PROFESIONAL" Type="Int32" Nullable="false" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_INFO" FromRole="INFORME" ToRole="CLIENTE" />
+    <NavigationProperty Name="PROFESIONAL" Relationship="Self.FK_PROFES_INFO" FromRole="INFORME" ToRole="PROFESIONAL" />
+  </EntityType>
+  <EntityType Name="LISTA">
+    <Key>
+      <PropertyRef Name="ID_LISTA" />
+    </Key>
+    <Property Name="ID_LISTA" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VISITA" Relationship="Self.FK_VISITA" FromRole="LISTA" ToRole="VISITA" />
+  </EntityType>
+  <EntityType Name="MATERIALES">
+    <Key>
+      <PropertyRef Name="ID_MATERIALES" />
+    </Key>
+    <Property Name="ID_MATERIALES" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_MATERIAL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="MATERIALES_EN_CAPACITACION" Relationship="Self.FK_MATERIALES" FromRole="MATERIALES" ToRole="MATERIALES_EN_CAPACITACION" />
+  </EntityType>
+  <EntityType Name="MATERIALES_EN_CAPACITACION">
+    <Key>
+      <PropertyRef Name="ID_MATERIALES_CAPACITACION" />
+    </Key>
+    <Property Name="ID_MATERIALES_CAPACITACION" Type="Int32" Nullable="false" />
+    <Property Name="CANTIDAD" Type="Int16" Nullable="false" />
+    <Property Name="ID_MATERIALES" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CAPACITACION" Relationship="Self.FK_CAPA_MAT" FromRole="MATERIALES_EN_CAPACITACION" ToRole="CAPACITACION" />
+    <NavigationProperty Name="MATERIALES" Relationship="Self.FK_MATERIALES" FromRole="MATERIALES_EN_CAPACITACION" ToRole="MATERIALES" />
+  </EntityType>
+  <EntityType Name="MEJORAS">
+    <Key>
+      <PropertyRef Name="ID_MEJORAS" />
+    </Key>
+    <Property Name="ID_MEJORAS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PLAN_MEJORAS" Relationship="Self.FK_PLAN_MEJORAS" FromRole="MEJORAS" ToRole="PLAN_MEJORAS" />
+  </EntityType>
+  <EntityType Name="METODOS_PAGOS">
+    <Key>
+      <PropertyRef Name="ID_METODOS_PAGOS" />
+    </Key>
+    <Property Name="ID_METODOS_PAGOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PAGOS" Relationship="Self.FK_PAG_MET_PA" FromRole="METODOS_PAGOS" ToRole="PAGOS" />
+  </EntityType>
+  <EntityType Name="MOROSIDAD">
+    <Key>
+      <PropertyRef Name="ID_MOROSIDAD" />
+    </Key>
+    <Property Name="ID_MOROSIDAD" Type="Int32" Nullable="false" />
+    <Property Name="CANTIDAD_PENDIENTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DOCUMENTOS" Relationship="Self.FK_DOCUME_MOROSI" FromRole="MOROSIDAD" ToRole="DOCUMENTOS" />
+  </EntityType>
+  <EntityType Name="PAGOS">
+    <Key>
+      <PropertyRef Name="ID_PAGOS" />
+    </Key>
+    <Property Name="ID_PAGOS" Type="Int32" Nullable="false" />
+    <Property Name="CUOTA" Type="Int16" Nullable="false" />
+    <Property Name="MONTO_CUOTA" Type="Int32" Nullable="false" />
+    <Property Name="ID_ALERTA_PROXIMO_PAGO" Type="Int32" Nullable="false" />
+    <Property Name="ID_METODOS_PAGOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALERTA_PROXIMO_PAGO" Relationship="Self.FK_PA_AL_PROX" FromRole="PAGOS" ToRole="ALERTA_PROXIMO_PAGO" />
+    <NavigationProperty Name="DOCUMENTOS" Relationship="Self.FK_DOCUM_PAG" FromRole="PAGOS" ToRole="DOCUMENTOS" />
+    <NavigationProperty Name="METODOS_PAGOS" Relationship="Self.FK_PAG_MET_PA" FromRole="PAGOS" ToRole="METODOS_PAGOS" />
+  </EntityType>
+  <EntityType Name="PARTICIPANTE_CAPACITACION">
+    <Key>
+      <PropertyRef Name="ID_PARTICIPANTE_CAPACITACION" />
+    </Key>
+    <Property Name="ID_PARTICIPANTE_CAPACITACION" Type="Int32" Nullable="false" />
+    <Property Name="CONFIRMA_ASISTENCIA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RUT_PARTICIPANTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CAPACITACION" Relationship="Self.FK_CAPA_PARTICIPA_" FromRole="PARTICIPANTE_CAPACITACION" ToRole="CAPACITACION" />
+    <NavigationProperty Name="PARTICIPANTES" Relationship="Self.FK_PART_CAPA" FromRole="PARTICIPANTE_CAPACITACION" ToRole="PARTICIPANTES" />
+  </EntityType>
+  <EntityType Name="PARTICIPANTES">
+    <Key>
+      <PropertyRef Name="RUT_PARTICIPANTE" />
+    </Key>
+    <Property Name="RUT_PARTICIPANTE" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_COMPLETO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CORREO_ELECTRONICO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PARTICIPANTE_CAPACITACION" Relationship="Self.FK_PART_CAPA" FromRole="PARTICIPANTES" ToRole="PARTICIPANTE_CAPACITACION" />
+  </EntityType>
+  <EntityType Name="PLAN_MEJORAS">
+    <Key>
+      <PropertyRef Name="ID_PLAN_MEJORAS" />
+    </Key>
+    <Property Name="ID_PLAN_MEJORAS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_MEJORAS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ASESORIA" Relationship="Self.FK_ASESORIA" FromRole="PLAN_MEJORAS" ToRole="ASESORIA" />
+    <NavigationProperty Name="MEJORAS" Relationship="Self.FK_PLAN_MEJORAS" FromRole="PLAN_MEJORAS" ToRole="MEJORAS" />
+  </EntityType>
+  <EntityType Name="PROFESIONAL">
+    <Key>
+      <PropertyRef Name="RUT_PROFESIONAL" />
+    </Key>
+    <Property Name="RUT_PROFESIONAL" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_PROFESIONAL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="INFORME" Relationship="Self.FK_PROFES_INFO" FromRole="PROFESIONAL" ToRole="INFORME" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_PROFESI" FromRole="PROFESIONAL" ToRole="USUARIO" />
+    <NavigationProperty Name="REGISTRO_ACTIVIDADES" Relationship="Self.FK_RE_ACT_PROFES" FromRole="PROFESIONAL" ToRole="REGISTRO_ACTIVIDADES" />
+  </EntityType>
+  <EntityType Name="REGISTRO_ACCIDENTES">
+    <Key>
+      <PropertyRef Name="ID_REGISTRO_ACCIDENTES" />
+    </Key>
+    <Property Name="ID_REGISTRO_ACCIDENTES" Type="Int32" Nullable="false" />
+    <Property Name="FECHA_ACCIDENTE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_DETALLE_ACCIDENTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALERTA_ACCIDENTE" Relationship="Self.FK_REGI_ACCID" FromRole="REGISTRO_ACCIDENTES" ToRole="ALERTA_ACCIDENTE" />
+    <NavigationProperty Name="DETALLE_ACCIDENTE" Relationship="Self.FK_DETA_ACCIDE" FromRole="REGISTRO_ACCIDENTES" ToRole="DETALLE_ACCIDENTE" />
+  </EntityType>
+  <EntityType Name="REGISTRO_ACTIVIDADES">
+    <Key>
+      <PropertyRef Name="ID_REGISTRO_ACTIVIDADES" />
+    </Key>
+    <Property Name="ID_REGISTRO_ACTIVIDADES" Type="Int32" Nullable="false" />
+    <Property Name="ID_SOLICITUD" Type="Int32" Nullable="false" />
+    <Property Name="RUT_PROFESIONAL" Type="Int32" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_RE_ACT_CLIE" FromRole="REGISTRO_ACTIVIDADES" ToRole="CLIENTE" />
+    <NavigationProperty Name="PROFESIONAL" Relationship="Self.FK_RE_ACT_PROFES" FromRole="REGISTRO_ACTIVIDADES" ToRole="PROFESIONAL" />
+    <NavigationProperty Name="SOLICITUDES" Relationship="Self.FK_SOLICIT" FromRole="REGISTRO_ACTIVIDADES" ToRole="SOLICITUDES" />
+  </EntityType>
+  <EntityType Name="ROLES_USUARIOS">
+    <Key>
+      <PropertyRef Name="ID_ROLES_USUARIOS" />
+    </Key>
+    <Property Name="ID_ROLES_USUARIOS" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_ROL_USUA" FromRole="ROLES_USUARIOS" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="SERVICIOS">
+    <Key>
+      <PropertyRef Name="ID_SERVICIOS" />
+    </Key>
+    <Property Name="ID_SERVICIOS" Type="Int32" Nullable="false" />
+    <Property Name="VALOR_SERVICIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECHA_VIGENCIA" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_SERVICIODATE" Type="DateTime" Nullable="false" />
+    <Property Name="ID_DETALLES_DOCUMENTOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DETALLES_DOCUMENTOS" Relationship="Self.FK_SERV_DETA_DOCUM" FromRole="SERVICIOS" ToRole="DETALLES_DOCUMENTOS" />
+    <NavigationProperty Name="SERVICIOS_EN_CONTRATOS" Relationship="Self.FK_SER_CONT_SERVI" FromRole="SERVICIOS" ToRole="SERVICIOS_EN_CONTRATOS" />
+  </EntityType>
+  <EntityType Name="SERVICIOS_EN_CONTRATOS">
+    <Key>
+      <PropertyRef Name="ID_SERVICIOS_EN_CONTRATOS" />
+    </Key>
+    <Property Name="ID_SERVICIOS_EN_CONTRATOS" Type="Int32" Nullable="false" />
+    <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_FIN" Type="DateTime" Nullable="false" />
+    <Property Name="ID_SERVICIOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTRATO" Relationship="Self.FK_CONTRATO_SERVO_CONT" FromRole="SERVICIOS_EN_CONTRATOS" ToRole="CONTRATO" />
+    <NavigationProperty Name="SERVICIOS" Relationship="Self.FK_SER_CONT_SERVI" FromRole="SERVICIOS_EN_CONTRATOS" ToRole="SERVICIOS" />
+  </EntityType>
+  <EntityType Name="SOLICITUDES">
+    <Key>
+      <PropertyRef Name="ID_SOLICITUD" />
+    </Key>
+    <Property Name="ID_SOLICITUD" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECHA_SOLICITUD" Type="DateTime" Nullable="false" />
+    <Property Name="FECHA_CIERRE" Type="DateTime" />
+    <Property Name="RESOLUCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ID_TIPO_SOLICITUDES" Type="Int32" Nullable="false" />
+    <Property Name="RUT_CLIENTE" Type="Int32" Nullable="false" />
+    <Property Name="ID_ESTADO_SOLICITUDES" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE" FromRole="SOLICITUDES" ToRole="CLIENTE" />
+    <NavigationProperty Name="ESTADO_SOLICITUDES" Relationship="Self.FK_EST_SOLICI" FromRole="SOLICITUDES" ToRole="ESTADO_SOLICITUDES" />
+    <NavigationProperty Name="REGISTRO_ACTIVIDADES" Relationship="Self.FK_SOLICIT" FromRole="SOLICITUDES" ToRole="REGISTRO_ACTIVIDADES" />
+    <NavigationProperty Name="TIPO_SOLICITUDES" Relationship="Self.FK_TIPO_SOLICI" FromRole="SOLICITUDES" ToRole="TIPO_SOLICITUDES" />
+  </EntityType>
+  <EntityType Name="TIPO_CASO">
+    <Key>
+      <PropertyRef Name="ID_TIPO_CASO" />
+    </Key>
+    <Property Name="ID_TIPO_CASO" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CASOS" Relationship="Self.FK_CA_TIPO_CASO" FromRole="TIPO_CASO" ToRole="CASOS" />
+  </EntityType>
+  <EntityType Name="TIPO_DOCUMENTO">
+    <Key>
+      <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+    </Key>
+    <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DOCUMENTOS" Relationship="Self.FK_DOCUMES_TIPO_DOCUME" FromRole="TIPO_DOCUMENTO" ToRole="DOCUMENTOS" />
+  </EntityType>
+  <EntityType Name="TIPO_SOLICITUDES">
+    <Key>
+      <PropertyRef Name="ID_TIPO_SOLICITUDES" />
+    </Key>
+    <Property Name="ID_TIPO_SOLICITUDES" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="SOLICITUDES" Relationship="Self.FK_TIPO_SOLICI" FromRole="TIPO_SOLICITUDES" ToRole="SOLICITUDES" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_USUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTRASENA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_ROLES_USUARIOS" Type="Int32" Nullable="false" />
+    <Property Name="ID_ESTADO_USUARIOS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_USUARIO" FromRole="USUARIO" ToRole="CLIENTE" />
+    <NavigationProperty Name="ESTADO_USUARIOS" Relationship="Self.FK_EST_USUAR" FromRole="USUARIO" ToRole="ESTADO_USUARIOS" />
+    <NavigationProperty Name="PROFESIONAL" Relationship="Self.FK_PROFESI" FromRole="USUARIO" ToRole="PROFESIONAL" />
+    <NavigationProperty Name="ROLES_USUARIOS" Relationship="Self.FK_ROL_USUA" FromRole="USUARIO" ToRole="ROLES_USUARIOS" />
+  </EntityType>
+  <EntityType Name="VISITA">
+    <Key>
+      <PropertyRef Name="ID_VISITA" />
+    </Key>
+    <Property Name="ID_VISITA" Type="Int32" Nullable="false" />
+    <Property Name="FECHA" Type="DateTime" Nullable="false" />
+    <Property Name="HORA" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_LISTA" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="LISTA" Relationship="Self.FK_VISITA" FromRole="VISITA" ToRole="LISTA" />
+  </EntityType>
+  <Association Name="FK_ALE_CLIE">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="ALERTA_ACCIDENTE" Type="Self.ALERTA_ACCIDENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="ALERTA_ACCIDENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGI_ACCID">
+    <End Role="REGISTRO_ACCIDENTES" Type="Self.REGISTRO_ACCIDENTES" Multiplicity="1" />
+    <End Role="ALERTA_ACCIDENTE" Type="Self.ALERTA_ACCIDENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="REGISTRO_ACCIDENTES">
+        <PropertyRef Name="ID_REGISTRO_ACCIDENTES" />
+      </Principal>
+      <Dependent Role="ALERTA_ACCIDENTE">
+        <PropertyRef Name="ID_REGISTRO_ACCIDENTES" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PA_AL_PROX">
+    <End Role="ALERTA_PROXIMO_PAGO" Type="Self.ALERTA_PROXIMO_PAGO" Multiplicity="1" />
+    <End Role="PAGOS" Type="Self.PAGOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALERTA_PROXIMO_PAGO">
+        <PropertyRef Name="ID_ALERTA_PROXIMO_PAGO" />
+      </Principal>
+      <Dependent Role="PAGOS">
+        <PropertyRef Name="ID_ALERTA_PROXIMO_PAGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ASESORIA">
+    <End Role="PLAN_MEJORAS" Type="Self.PLAN_MEJORAS" Multiplicity="1" />
+    <End Role="ASESORIA" Type="Self.ASESORIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PLAN_MEJORAS">
+        <PropertyRef Name="ID_PLAN_MEJORAS" />
+      </Principal>
+      <Dependent Role="ASESORIA">
+        <PropertyRef Name="ID_PLAN_MEJORAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAPA_MAT">
+    <End Role="MATERIALES_EN_CAPACITACION" Type="Self.MATERIALES_EN_CAPACITACION" Multiplicity="1" />
+    <End Role="CAPACITACION" Type="Self.CAPACITACION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MATERIALES_EN_CAPACITACION">
+        <PropertyRef Name="ID_MATERIALES_CAPACITACION" />
+      </Principal>
+      <Dependent Role="CAPACITACION">
+        <PropertyRef Name="ID_MATERIALES_CAPACITACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAPA_PARTICIPA_">
+    <End Role="PARTICIPANTE_CAPACITACION" Type="Self.PARTICIPANTE_CAPACITACION" Multiplicity="1" />
+    <End Role="CAPACITACION" Type="Self.CAPACITACION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PARTICIPANTE_CAPACITACION">
+        <PropertyRef Name="ID_PARTICIPANTE_CAPACITACION" />
+      </Principal>
+      <Dependent Role="CAPACITACION">
+        <PropertyRef Name="ID_PARTICIPANTE_CAPACITACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CA_CLIENT">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="CASOS" Type="Self.CASOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="CASOS">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CA_ESTA_CASO">
+    <End Role="ESTADO_CASO" Type="Self.ESTADO_CASO" Multiplicity="1" />
+    <End Role="CASOS" Type="Self.CASOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO_CASO">
+        <PropertyRef Name="ID_ESTADO_CASO" />
+      </Principal>
+      <Dependent Role="CASOS">
+        <PropertyRef Name="ID_ESTADO_CASO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CA_TIPO_CASO">
+    <End Role="TIPO_CASO" Type="Self.TIPO_CASO" Multiplicity="1" />
+    <End Role="CASOS" Type="Self.CASOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_CASO">
+        <PropertyRef Name="ID_TIPO_CASO" />
+      </Principal>
+      <Dependent Role="CASOS">
+        <PropertyRef Name="ID_TIPO_CASO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENTE">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="SOLICITUDES">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENTE_INFO">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="INFORME" Type="Self.INFORME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="INFORME">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENTE_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_CLIENTE">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="CONTRATO">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RE_ACT_CLIE">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="REGISTRO_ACTIVIDADES" Type="Self.REGISTRO_ACTIVIDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Principal>
+      <Dependent Role="REGISTRO_ACTIVIDADES">
+        <PropertyRef Name="RUT_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_SERVO_CONT">
+    <End Role="SERVICIOS_EN_CONTRATOS" Type="Self.SERVICIOS_EN_CONTRATOS" Multiplicity="0..1" />
+    <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SERVICIOS_EN_CONTRATOS">
+        <PropertyRef Name="ID_SERVICIOS_EN_CONTRATOS" />
+      </Principal>
+      <Dependent Role="CONTRATO">
+        <PropertyRef Name="ID_SERVICIOS_EN_CONTRATOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETA_ACCIDE">
+    <End Role="DETALLE_ACCIDENTE" Type="Self.DETALLE_ACCIDENTE" Multiplicity="1" />
+    <End Role="REGISTRO_ACCIDENTES" Type="Self.REGISTRO_ACCIDENTES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DETALLE_ACCIDENTE">
+        <PropertyRef Name="ID_DETALLE_ACCIDENTE" />
+      </Principal>
+      <Dependent Role="REGISTRO_ACCIDENTES">
+        <PropertyRef Name="ID_DETALLE_ACCIDENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_DOCUMENTO">
+    <End Role="DOCUMENTOS" Type="Self.DOCUMENTOS" Multiplicity="1" />
+    <End Role="DETALLES_DOCUMENTOS" Type="Self.DETALLES_DOCUMENTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCUMENTOS">
+        <PropertyRef Name="ID_DOCUMENTOS" />
+      </Principal>
+      <Dependent Role="DETALLES_DOCUMENTOS">
+        <PropertyRef Name="ID_DOCUMENTOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SERV_DETA_DOCUM">
+    <End Role="DETALLES_DOCUMENTOS" Type="Self.DETALLES_DOCUMENTOS" Multiplicity="1" />
+    <End Role="SERVICIOS" Type="Self.SERVICIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DETALLES_DOCUMENTOS">
+        <PropertyRef Name="ID_DETALLES_DOCUMENTOS" />
+      </Principal>
+      <Dependent Role="SERVICIOS">
+        <PropertyRef Name="ID_DETALLES_DOCUMENTOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUM_PAG">
+    <End Role="PAGOS" Type="Self.PAGOS" Multiplicity="1" />
+    <End Role="DOCUMENTOS" Type="Self.DOCUMENTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PAGOS">
+        <PropertyRef Name="ID_PAGOS" />
+      </Principal>
+      <Dependent Role="DOCUMENTOS">
+        <PropertyRef Name="ID_PAGOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUME_MOROSI">
+    <End Role="MOROSIDAD" Type="Self.MOROSIDAD" Multiplicity="1" />
+    <End Role="DOCUMENTOS" Type="Self.DOCUMENTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOROSIDAD">
+        <PropertyRef Name="ID_MOROSIDAD" />
+      </Principal>
+      <Dependent Role="DOCUMENTOS">
+        <PropertyRef Name="ID_MOROSIDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUMES_TIPO_DOCUME">
+    <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="1" />
+    <End Role="DOCUMENTOS" Type="Self.DOCUMENTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_DOCUMENTO">
+        <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+      </Principal>
+      <Dependent Role="DOCUMENTOS">
+        <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EST_SOLICI">
+    <End Role="ESTADO_SOLICITUDES" Type="Self.ESTADO_SOLICITUDES" Multiplicity="1" />
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO_SOLICITUDES">
+        <PropertyRef Name="ID_ESTADO_SOLICITUDES" />
+      </Principal>
+      <Dependent Role="SOLICITUDES">
+        <PropertyRef Name="ID_ESTADO_SOLICITUDES" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EST_USUAR">
+    <End Role="ESTADO_USUARIOS" Type="Self.ESTADO_USUARIOS" Multiplicity="1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO_USUARIOS">
+        <PropertyRef Name="ID_ESTADO_USUARIOS" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="ID_ESTADO_USUARIOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROFES_INFO">
+    <End Role="PROFESIONAL" Type="Self.PROFESIONAL" Multiplicity="1" />
+    <End Role="INFORME" Type="Self.INFORME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFESIONAL">
+        <PropertyRef Name="RUT_PROFESIONAL" />
+      </Principal>
+      <Dependent Role="INFORME">
+        <PropertyRef Name="RUT_PROFESIONAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VISITA">
+    <End Role="LISTA" Type="Self.LISTA" Multiplicity="1" />
+    <End Role="VISITA" Type="Self.VISITA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LISTA">
+        <PropertyRef Name="ID_LISTA" />
+      </Principal>
+      <Dependent Role="VISITA">
+        <PropertyRef Name="ID_LISTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MATERIALES">
+    <End Role="MATERIALES" Type="Self.MATERIALES" Multiplicity="1" />
+    <End Role="MATERIALES_EN_CAPACITACION" Type="Self.MATERIALES_EN_CAPACITACION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MATERIALES">
+        <PropertyRef Name="ID_MATERIALES" />
+      </Principal>
+      <Dependent Role="MATERIALES_EN_CAPACITACION">
+        <PropertyRef Name="ID_MATERIALES" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PLAN_MEJORAS">
+    <End Role="MEJORAS" Type="Self.MEJORAS" Multiplicity="1" />
+    <End Role="PLAN_MEJORAS" Type="Self.PLAN_MEJORAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEJORAS">
+        <PropertyRef Name="ID_MEJORAS" />
+      </Principal>
+      <Dependent Role="PLAN_MEJORAS">
+        <PropertyRef Name="ID_MEJORAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAG_MET_PA">
+    <End Role="METODOS_PAGOS" Type="Self.METODOS_PAGOS" Multiplicity="1" />
+    <End Role="PAGOS" Type="Self.PAGOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="METODOS_PAGOS">
+        <PropertyRef Name="ID_METODOS_PAGOS" />
+      </Principal>
+      <Dependent Role="PAGOS">
+        <PropertyRef Name="ID_METODOS_PAGOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PART_CAPA">
+    <End Role="PARTICIPANTES" Type="Self.PARTICIPANTES" Multiplicity="1" />
+    <End Role="PARTICIPANTE_CAPACITACION" Type="Self.PARTICIPANTE_CAPACITACION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PARTICIPANTES">
+        <PropertyRef Name="RUT_PARTICIPANTE" />
+      </Principal>
+      <Dependent Role="PARTICIPANTE_CAPACITACION">
+        <PropertyRef Name="RUT_PARTICIPANTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROFESI">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PROFESIONAL" Type="Self.PROFESIONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="PROFESIONAL">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RE_ACT_PROFES">
+    <End Role="PROFESIONAL" Type="Self.PROFESIONAL" Multiplicity="0..1" />
+    <End Role="REGISTRO_ACTIVIDADES" Type="Self.REGISTRO_ACTIVIDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFESIONAL">
+        <PropertyRef Name="RUT_PROFESIONAL" />
+      </Principal>
+      <Dependent Role="REGISTRO_ACTIVIDADES">
+        <PropertyRef Name="RUT_PROFESIONAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICIT">
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="1" />
+    <End Role="REGISTRO_ACTIVIDADES" Type="Self.REGISTRO_ACTIVIDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOLICITUDES">
+        <PropertyRef Name="ID_SOLICITUD" />
+      </Principal>
+      <Dependent Role="REGISTRO_ACTIVIDADES">
+        <PropertyRef Name="ID_SOLICITUD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROL_USUA">
+    <End Role="ROLES_USUARIOS" Type="Self.ROLES_USUARIOS" Multiplicity="1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES_USUARIOS">
+        <PropertyRef Name="ID_ROLES_USUARIOS" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="ID_ROLES_USUARIOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SER_CONT_SERVI">
+    <End Role="SERVICIOS" Type="Self.SERVICIOS" Multiplicity="1" />
+    <End Role="SERVICIOS_EN_CONTRATOS" Type="Self.SERVICIOS_EN_CONTRATOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SERVICIOS">
+        <PropertyRef Name="ID_SERVICIOS" />
+      </Principal>
+      <Dependent Role="SERVICIOS_EN_CONTRATOS">
+        <PropertyRef Name="ID_SERVICIOS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TIPO_SOLICI">
+    <End Role="TIPO_SOLICITUDES" Type="Self.TIPO_SOLICITUDES" Multiplicity="1" />
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_SOLICITUDES">
+        <PropertyRef Name="ID_TIPO_SOLICITUDES" />
+      </Principal>
+      <Dependent Role="SOLICITUDES">
+        <PropertyRef Name="ID_TIPO_SOLICITUDES" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NomasAccidentesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ALERTA_ACCIDENTE" EntityType="Self.ALERTA_ACCIDENTE" />
+    <EntitySet Name="ALERTA_PROXIMO_PAGO" EntityType="Self.ALERTA_PROXIMO_PAGO" />
+    <EntitySet Name="ASESORIA" EntityType="Self.ASESORIA" />
+    <EntitySet Name="CAPACITACION" EntityType="Self.CAPACITACION" />
+    <EntitySet Name="CASOS" EntityType="Self.CASOS" />
+    <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+    <EntitySet Name="CONTRATO" EntityType="Self.CONTRATO" />
+    <EntitySet Name="DETALLE_ACCIDENTE" EntityType="Self.DETALLE_ACCIDENTE" />
+    <EntitySet Name="DETALLES_DOCUMENTOS" EntityType="Self.DETALLES_DOCUMENTOS" />
+    <EntitySet Name="DOCUMENTOS" EntityType="Self.DOCUMENTOS" />
+    <EntitySet Name="ESTADO_CASO" EntityType="Self.ESTADO_CASO" />
+    <EntitySet Name="ESTADO_SOLICITUDES" EntityType="Self.ESTADO_SOLICITUDES" />
+    <EntitySet Name="ESTADO_USUARIOS" EntityType="Self.ESTADO_USUARIOS" />
+    <EntitySet Name="INFORME" EntityType="Self.INFORME" />
+    <EntitySet Name="LISTA" EntityType="Self.LISTA" />
+    <EntitySet Name="MATERIALES" EntityType="Self.MATERIALES" />
+    <EntitySet Name="MATERIALES_EN_CAPACITACION" EntityType="Self.MATERIALES_EN_CAPACITACION" />
+    <EntitySet Name="MEJORAS" EntityType="Self.MEJORAS" />
+    <EntitySet Name="METODOS_PAGOS" EntityType="Self.METODOS_PAGOS" />
+    <EntitySet Name="MOROSIDAD" EntityType="Self.MOROSIDAD" />
+    <EntitySet Name="PAGOS" EntityType="Self.PAGOS" />
+    <EntitySet Name="PARTICIPANTE_CAPACITACION" EntityType="Self.PARTICIPANTE_CAPACITACION" />
+    <EntitySet Name="PARTICIPANTES" EntityType="Self.PARTICIPANTES" />
+    <EntitySet Name="PLAN_MEJORAS" EntityType="Self.PLAN_MEJORAS" />
+    <EntitySet Name="PROFESIONAL" EntityType="Self.PROFESIONAL" />
+    <EntitySet Name="REGISTRO_ACCIDENTES" EntityType="Self.REGISTRO_ACCIDENTES" />
+    <EntitySet Name="REGISTRO_ACTIVIDADES" EntityType="Self.REGISTRO_ACTIVIDADES" />
+    <EntitySet Name="ROLES_USUARIOS" EntityType="Self.ROLES_USUARIOS" />
+    <EntitySet Name="SERVICIOS" EntityType="Self.SERVICIOS" />
+    <EntitySet Name="SERVICIOS_EN_CONTRATOS" EntityType="Self.SERVICIOS_EN_CONTRATOS" />
+    <EntitySet Name="SOLICITUDES" EntityType="Self.SOLICITUDES" />
+    <EntitySet Name="TIPO_CASO" EntityType="Self.TIPO_CASO" />
+    <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" />
+    <EntitySet Name="TIPO_SOLICITUDES" EntityType="Self.TIPO_SOLICITUDES" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <EntitySet Name="VISITA" EntityType="Self.VISITA" />
+    <AssociationSet Name="FK_ALE_CLIE" Association="Self.FK_ALE_CLIE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="ALERTA_ACCIDENTE" EntitySet="ALERTA_ACCIDENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGI_ACCID" Association="Self.FK_REGI_ACCID">
+      <End Role="REGISTRO_ACCIDENTES" EntitySet="REGISTRO_ACCIDENTES" />
+      <End Role="ALERTA_ACCIDENTE" EntitySet="ALERTA_ACCIDENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PA_AL_PROX" Association="Self.FK_PA_AL_PROX">
+      <End Role="ALERTA_PROXIMO_PAGO" EntitySet="ALERTA_PROXIMO_PAGO" />
+      <End Role="PAGOS" EntitySet="PAGOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ASESORIA" Association="Self.FK_ASESORIA">
+      <End Role="PLAN_MEJORAS" EntitySet="PLAN_MEJORAS" />
+      <End Role="ASESORIA" EntitySet="ASESORIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAPA_MAT" Association="Self.FK_CAPA_MAT">
+      <End Role="MATERIALES_EN_CAPACITACION" EntitySet="MATERIALES_EN_CAPACITACION" />
+      <End Role="CAPACITACION" EntitySet="CAPACITACION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAPA_PARTICIPA_" Association="Self.FK_CAPA_PARTICIPA_">
+      <End Role="PARTICIPANTE_CAPACITACION" EntitySet="PARTICIPANTE_CAPACITACION" />
+      <End Role="CAPACITACION" EntitySet="CAPACITACION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CA_CLIENT" Association="Self.FK_CA_CLIENT">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CASOS" EntitySet="CASOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CA_ESTA_CASO" Association="Self.FK_CA_ESTA_CASO">
+      <End Role="ESTADO_CASO" EntitySet="ESTADO_CASO" />
+      <End Role="CASOS" EntitySet="CASOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CA_TIPO_CASO" Association="Self.FK_CA_TIPO_CASO">
+      <End Role="TIPO_CASO" EntitySet="TIPO_CASO" />
+      <End Role="CASOS" EntitySet="CASOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENTE" Association="Self.FK_CLIENTE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENTE_INFO" Association="Self.FK_CLIENTE_INFO">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="INFORME" EntitySet="INFORME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENTE_USUARIO" Association="Self.FK_CLIENTE_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_CLIENTE" Association="Self.FK_CONTRATO_CLIENTE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CONTRATO" EntitySet="CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RE_ACT_CLIE" Association="Self.FK_RE_ACT_CLIE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="REGISTRO_ACTIVIDADES" EntitySet="REGISTRO_ACTIVIDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_SERVO_CONT" Association="Self.FK_CONTRATO_SERVO_CONT">
+      <End Role="SERVICIOS_EN_CONTRATOS" EntitySet="SERVICIOS_EN_CONTRATOS" />
+      <End Role="CONTRATO" EntitySet="CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETA_ACCIDE" Association="Self.FK_DETA_ACCIDE">
+      <End Role="DETALLE_ACCIDENTE" EntitySet="DETALLE_ACCIDENTE" />
+      <End Role="REGISTRO_ACCIDENTES" EntitySet="REGISTRO_ACCIDENTES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_DOCUMENTO" Association="Self.FK_DETALLE_DOCUMENTO">
+      <End Role="DOCUMENTOS" EntitySet="DOCUMENTOS" />
+      <End Role="DETALLES_DOCUMENTOS" EntitySet="DETALLES_DOCUMENTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SERV_DETA_DOCUM" Association="Self.FK_SERV_DETA_DOCUM">
+      <End Role="DETALLES_DOCUMENTOS" EntitySet="DETALLES_DOCUMENTOS" />
+      <End Role="SERVICIOS" EntitySet="SERVICIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUM_PAG" Association="Self.FK_DOCUM_PAG">
+      <End Role="PAGOS" EntitySet="PAGOS" />
+      <End Role="DOCUMENTOS" EntitySet="DOCUMENTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUME_MOROSI" Association="Self.FK_DOCUME_MOROSI">
+      <End Role="MOROSIDAD" EntitySet="MOROSIDAD" />
+      <End Role="DOCUMENTOS" EntitySet="DOCUMENTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUMES_TIPO_DOCUME" Association="Self.FK_DOCUMES_TIPO_DOCUME">
+      <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+      <End Role="DOCUMENTOS" EntitySet="DOCUMENTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EST_SOLICI" Association="Self.FK_EST_SOLICI">
+      <End Role="ESTADO_SOLICITUDES" EntitySet="ESTADO_SOLICITUDES" />
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EST_USUAR" Association="Self.FK_EST_USUAR">
+      <End Role="ESTADO_USUARIOS" EntitySet="ESTADO_USUARIOS" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROFES_INFO" Association="Self.FK_PROFES_INFO">
+      <End Role="PROFESIONAL" EntitySet="PROFESIONAL" />
+      <End Role="INFORME" EntitySet="INFORME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VISITA" Association="Self.FK_VISITA">
+      <End Role="LISTA" EntitySet="LISTA" />
+      <End Role="VISITA" EntitySet="VISITA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MATERIALES" Association="Self.FK_MATERIALES">
+      <End Role="MATERIALES" EntitySet="MATERIALES" />
+      <End Role="MATERIALES_EN_CAPACITACION" EntitySet="MATERIALES_EN_CAPACITACION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PLAN_MEJORAS" Association="Self.FK_PLAN_MEJORAS">
+      <End Role="MEJORAS" EntitySet="MEJORAS" />
+      <End Role="PLAN_MEJORAS" EntitySet="PLAN_MEJORAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAG_MET_PA" Association="Self.FK_PAG_MET_PA">
+      <End Role="METODOS_PAGOS" EntitySet="METODOS_PAGOS" />
+      <End Role="PAGOS" EntitySet="PAGOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PART_CAPA" Association="Self.FK_PART_CAPA">
+      <End Role="PARTICIPANTES" EntitySet="PARTICIPANTES" />
+      <End Role="PARTICIPANTE_CAPACITACION" EntitySet="PARTICIPANTE_CAPACITACION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROFESI" Association="Self.FK_PROFESI">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="PROFESIONAL" EntitySet="PROFESIONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RE_ACT_PROFES" Association="Self.FK_RE_ACT_PROFES">
+      <End Role="PROFESIONAL" EntitySet="PROFESIONAL" />
+      <End Role="REGISTRO_ACTIVIDADES" EntitySet="REGISTRO_ACTIVIDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICIT" Association="Self.FK_SOLICIT">
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+      <End Role="REGISTRO_ACTIVIDADES" EntitySet="REGISTRO_ACTIVIDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROL_USUA" Association="Self.FK_ROL_USUA">
+      <End Role="ROLES_USUARIOS" EntitySet="ROLES_USUARIOS" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SER_CONT_SERVI" Association="Self.FK_SER_CONT_SERVI">
+      <End Role="SERVICIOS" EntitySet="SERVICIOS" />
+      <End Role="SERVICIOS_EN_CONTRATOS" EntitySet="SERVICIOS_EN_CONTRATOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TIPO_SOLICI" Association="Self.FK_TIPO_SOLICI">
+      <End Role="TIPO_SOLICITUDES" EntitySet="TIPO_SOLICITUDES" />
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+    </AssociationSet>
+    <FunctionImport Name="SPP_ELIMINARUSUARIO">
+      <Parameter Name="IDE" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_INSERTARCLIENTE">
+      <Parameter Name="RUT" Mode="In" Type="String" />
+      <Parameter Name="NOMBRE" Mode="In" Type="String" />
+      <Parameter Name="RUBRO" Mode="In" Type="String" />
+      <Parameter Name="CORREO" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_INSERTARPROF">
+      <Parameter Name="RUT" Mode="In" Type="String" />
+      <Parameter Name="NOMBRE" Mode="In" Type="String" />
+      <Parameter Name="ROL" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_INSERTARSOLI">
+      <Parameter Name="RUT" Mode="In" Type="Decimal" />
+      <Parameter Name="TIPOS" Mode="In" Type="Decimal" />
+      <Parameter Name="FECHA" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_INSERTARUSUARIO">
+      <Parameter Name="NOMBRE" Mode="In" Type="String" />
+      <Parameter Name="CONTRASENAU" Mode="In" Type="Decimal" />
+      <Parameter Name="ID_ROL" Mode="In" Type="Decimal" />
+      <Parameter Name="ID_ESTADO" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_LISTAR_CLIENT">
+      <Parameter Name="BUS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_LISTAR_INFORMES" />
+    <FunctionImport Name="SPP_LISTAR_LISTA" />
+    <FunctionImport Name="SPP_LISTAR_PAGOS" />
+    <FunctionImport Name="SPP_LISTAR_PROFESIONALES">
+      <Parameter Name="BUS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPP_LISTAR_SOLICITUDES" />
+    <FunctionImport Name="SPP_LISTAR_USUARIOS" />
+    <FunctionImport Name="SPP_MODIFICARUSUARIO">
+      <Parameter Name="IDE" Mode="In" Type="Decimal" />
+      <Parameter Name="RUT" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

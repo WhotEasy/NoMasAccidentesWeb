@@ -1,0 +1,54 @@
+﻿@using NomasAccidentes2._0.Negocio;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfesional.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 ">
+            <h2 class="text-primary">Registro de Actividades</h2>
+        </div>
+
+    </div>
+    @{
+        List<Registroactiv> registroactivs = (List<Registroactiv>)ViewBag.reg;
+    }
+    <table id="tblUsuario" class="table table-striped table-bordered nowrap" style="width:100%">
+        <tr>
+            <th> Descripcion solicitud</th>
+            <th> Fecha de solicitud</th>
+            <th>Nombre cliente</th>
+            <th>Resolucion</th>
+            <th> Fecha de cierre</th>
+            <th>Tipo solicitud</th>
+            <th>Estado solicitud</th>
+            <th>Profesional asignado </th>
+            <th>Opciones</th>
+        </tr>
+        @foreach (var registroactiv in registroactivs)
+        {
+    <tr>
+
+        <td>@registroactiv.solicitudes.DESCRIPCION</td>
+        <td>@registroactiv.solicitudes.FECHA_SOLICITUD</td>
+        <td>@registroactiv.cliente.nombreCliente</td>
+        <td>@registroactiv.solicitudes.RESOLUCION</td>
+        <td>@registroactiv.solicitudes.FECHA_CIERRE</td>
+        <td>@registroactiv.solicitudes.ID_TIPO_SOLICITUDES</td>
+        <td>@registroactiv.solicitudes.ID_ESTADO_SOLICITUDES</td>
+        <td>@registroactiv.profesional.nombre_profesional</td>
+        <td>
+            <div class="text-center ">
+                @Html.ActionLink("Modificar", "Edit", new { id = registroactiv.solicitudes.ID_SOLICITUD }, new { @class = "btn btn-success fas fa-edit" })
+
+
+            </div>
+        </td>
+    </tr>
+        }
+
+    </table>
+    @TempData["mensaje"]
+</div>

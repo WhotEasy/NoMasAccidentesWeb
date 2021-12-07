@@ -19,10 +19,7 @@
                         @Html.HiddenFor(u => u.DESCRIPCION)
                         @Html.HiddenFor(u => u.Rut_profesional, new { @class = "form-control" })
                         @Html.HiddenFor(u => u.Rut_cliente, new { @class = "form-control" })
-                        @Html.LabelFor(u => u.ID_PLANILLA, "Planilla", new { @class = "form-control" })
-                    </div>
-                    <div class="col-8 mt-4">
-                        @Html.DropDownListFor(u => u.ID_PLANILLA, new SelectList(ViewBag.plani, "Id_planilla", "Descripcion"), new { @class = "form-control" })
+                        @Html.HiddenFor(u => u.ID_PLANILLA,  new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="form-group row">

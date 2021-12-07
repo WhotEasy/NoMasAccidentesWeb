@@ -30,7 +30,6 @@
             <th> fecha informe</th>
             <th> Rut prfesional </th>
             <th> Rut cliente </th>
-            <th>id_planilla</th>
             <th> Opciones</th>
         </tr>
         @foreach (var inform in infor)
@@ -41,7 +40,6 @@
                 <td>@inform.fecha</td>
                 <td>@inform.Rut_profesional</td>
                 <td>@inform.Rut_cliente</td>
-                <td>@inform.ID_PLANILLA</td>
                 <td>
                     <div class="text-center ">
                         @Html.ActionLink("Calificar", "Edit", new { id = inform.Id_informe }, new { @class = "btn btn-success fas fa-edit" })

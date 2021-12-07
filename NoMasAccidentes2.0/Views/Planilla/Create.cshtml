@@ -16,6 +16,16 @@
             <div class="col-10 offset-1 mt-4">
                 <div class="form-group row">
                     <div class="col-4 mt-4">
+                        @Html.LabelFor(u => u.rut_cliente, new { @class = "form-control" })
+                    </div>
+                    <div class="col-8 mt-4">
+                        @Html.TextBoxFor(u => u.rut_cliente, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-10 offset-1 mt-4">
+                <div class="form-group row">
+                    <div class="col-4 mt-4">
                         @Html.LabelFor(u => u.Descripcion, new { @class = "form-control" })
                     </div>
                     <div class="col-8 mt-4">
